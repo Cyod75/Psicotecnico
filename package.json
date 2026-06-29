@@ -1,0 +1,9 @@
+{
+  "name": "psicotecnico-tropa-marineria",
+  "version": "1.0.0",
+  "description": "Simulador de psicotécnicos para Tropa y Marinería del Ejército de España",
+  "type": "module",
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

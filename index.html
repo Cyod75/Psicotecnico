@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="description" content="Simulador de psicotécnicos para Tropa y Marinería del Ejército de España. Practica con tests realistas de los 7 módulos: verbal, espacial, percepción, numérico, mecánico, memoria y abstracto.">
+  <meta name="theme-color" content="#1a2332">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <title>Psicotécnico · Tropa y Marinería — Simulador</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎖️</text></svg>">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,400;0,14..32,500;0,14..32,600;0,14..32,700;0,14..32,800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,1,0" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- ═══ HEADER ═══ -->
+  <header class="header" role="banner">
+    <div class="header__logo" id="headerLogo" tabindex="0" role="button" aria-label="Ir al inicio">
+      <span class="header__logo-icon material-symbols-rounded">military_tech</span>
+      <span>Psicotécnico</span>
+    </div>
+    <div class="header__actions">
+    </div>
+  </header>
+
+  <main class="main" role="main">
+
+    <!-- ═══ PANTALLA: HOME ═══ -->
+    <section class="screen active" id="screenHome" aria-label="Pantalla principal">
+
+      <!-- Hero -->
+      <div class="hero">
+        <span class="hero__badge">
+          <span class="material-symbols-rounded" style="font-size:14px;vertical-align:middle;">military_tech</span>
+          Ejército de España
+        </span>
+        <h1 class="hero__title">Psicotécnico<br>Tropa y Marinería</h1>
+        <p class="hero__subtitle">Simulacros realistas para preparar tu acceso. 7 módulos, corrección automática y seguimiento de progreso.</p>
+      </div>
+
+      <!-- Stats Strip -->
+      <div class="stats-strip" id="statsStrip" aria-label="Tus estadísticas">
+        <div class="stat-pill" id="statPillTests">
+          <span class="material-symbols-rounded stat-pill__icon">quiz</span>
+          <div>
+            <div class="stat-pill__value" id="statTotalTests">0</div>
+            <div class="stat-pill__label">Tests</div>
+          </div>
+        </div>
+        <div class="stat-pill" id="statPillBest">
+          <span class="material-symbols-rounded stat-pill__icon">emoji_events</span>
+          <div>
+            <div class="stat-pill__value" id="statBestScore">—</div>
+            <div class="stat-pill__label">Mejor</div>
+          </div>
+        </div>
+        <div class="stat-pill" id="statPillAvg">
+          <span class="material-symbols-rounded stat-pill__icon">trending_up</span>
+          <div>
+            <div class="stat-pill__value" id="statAvgScore">—</div>
+            <div class="stat-pill__label">Media</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Última puntuación -->
+      <div class="last-score" id="lastScore" aria-live="polite">
+        <div class="last-score__label">Tu última puntuación</div>
+        <div class="last-score__row">
+          <span class="last-score__value" id="lastScoreValue">—</span>
+          <span class="last-score__test" id="lastScoreTest"></span>
+        </div>
+      </div>
+
+      <!-- Módulos -->
+      <section class="info-section" aria-label="Módulos del test">
+        <h2 class="info-section__title">7 Módulos</h2>
+        <div class="module-grid" id="moduleGrid" role="list">
+          <!-- Se llena con JS -->
+        </div>
+      </section>
+
+      <!-- Selector de modo -->
+      <section class="info-section" aria-label="Modo de estudio">
+        <h2 class="info-section__title">Modo de estudio</h2>
+        <div class="mode-selector" role="radiogroup" aria-label="Seleccionar modo">
+          <button class="mode-btn active" id="modeExam" role="radio" aria-checked="true" data-mode="exam">
+            <span class="material-symbols-rounded">my_location</span> Simulacro
+          </button>
+          <button class="mode-btn" id="modePractice" role="radio" aria-checked="false" data-mode="practice">
+            <span class="material-symbols-rounded">menu_book</span> Práctica
+          </button>
+        </div>
+      </section>
+
+      <!-- Lista de tests -->
+      <section class="info-section" aria-label="Tests disponibles">
+        <h2 class="info-section__title">Elige un test</h2>
+        <div class="test-list" id="testList" role="list">
+          <!-- Se llena con JS -->
+        </div>
+
+        <!-- Tarjeta IA -->
+        <article class="test-card ai-card" id="aiTestCard" role="listitem" tabindex="0" aria-label="Generar test con Inteligencia Artificial">
+          <div class="ai-card__glow" aria-hidden="true"></div>
+          <div class="test-card__header">
+            <h3 class="test-card__name">
+              <span class="ai-badge">✨ IA</span>
+              Test Generado por IA
+            </h3>
+            <span class="test-card__badge" style="background: linear-gradient(135deg, rgba(10,132,255,0.2), rgba(94,92,230,0.2)); color: #a78bfa; border-color: rgba(167,139,250,0.3);">Gemini 2.5</span>
+          </div>
+          <p class="test-card__desc">Genera un examen único e irrepetible usando Inteligencia Artificial. 7 módulos, dificultad configurable, preguntas nuevas cada vez.</p>
+          <div class="test-card__meta">
+            <span class="test-card__meta-item"><span class="material-symbols-rounded" style="font-size: 16px;">psychology</span> Preguntas únicas</span>
+            <span class="test-card__meta-item"><span class="material-symbols-rounded" style="font-size: 16px;">tune</span> Configurable</span>
+            <span class="test-card__meta-item"><span class="material-symbols-rounded" style="font-size: 16px;">auto_awesome</span> IA Avanzada</span>
+          </div>
+        </article>
+      </section>
+
+      <!-- Cómo funciona -->
+      <div class="how-it-works">
+        <h3 class="how-it-works__title">¿Cómo funciona?</h3>
+        <ul class="how-it-works__list">
+          <li class="how-it-works__item">
+            <span class="how-it-works__num">1</span>
+            <span>Elige un simulacro y un modo de estudio.</span>
+          </li>
+          <li class="how-it-works__item">
+            <span class="how-it-works__num">2</span>
+            <span>Responde las 35 preguntas de los 7 módulos.</span>
+          </li>
+          <li class="how-it-works__item">
+            <span class="how-it-works__num">3</span>
+            <span>En modo simulacro cuentas con un temporizador. En modo práctica puedes ver la solución al instante.</span>
+          </li>
+          <li class="how-it-works__item">
+            <span class="how-it-works__num">4</span>
+            <span>Al terminar, revisa tu puntuación con desglose por módulo y la corrección completa.</span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Footer -->
+      <footer class="footer" role="contentinfo">
+        <p>Simulador no oficial · Solo con fines de entrenamiento</p>
+        <p>Las preguntas son originales y no reproducen exámenes oficiales</p>
+      </footer>
+    </section>
+
+    <!-- ═══ PANTALLA: MEMORIZACIÓN ═══ -->
+    <section class="screen" id="screenMemory" aria-label="Fase de memorización">
+      <div class="memory-screen">
+        <h2 style="font-size: var(--fs-2xl); font-weight: 800; margin-bottom: var(--space-sm);">Fase de Memorización</h2>
+        <p style="color: var(--color-text-muted); margin-bottom: var(--space-md);">Memoriza la siguiente información. Después se te harán preguntas.</p>
+
+        <div class="memory-card">
+          <div class="memory-card__title">
+            <span class="material-symbols-rounded">psychology</span>
+            <span id="memoryTitle">Datos para memorizar</span>
+          </div>
+          <div class="memory-card__text" id="memoryText"></div>
+        </div>
+
+        <div class="memory-timer" id="memoryTimer">60</div>
+        <p class="memory-note">Los datos desaparecerán cuando termine el tiempo</p>
+
+        <button class="action-btn action-btn--primary mt-lg" id="memorySkipBtn" style="max-width: 300px; margin-left: auto; margin-right: auto;">
+          Ya lo he memorizado <span class="material-symbols-rounded">arrow_forward</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- ═══ PANTALLA: TEST ═══ -->
+    <section class="screen" id="screenTest" aria-label="Examen en curso">
+
+      <!-- Top bar -->
+      <div class="test-topbar">
+        <div class="test-topbar__module" id="currentModule">
+          <span id="moduleIcon" class="material-symbols-rounded">edit_document</span>
+          <span id="moduleName">Verbal</span>
+        </div>
+        <div class="test-topbar__timer" id="timerDisplay">
+          <span class="material-symbols-rounded">timer</span>
+          <span id="timerValue">30:00</span>
+        </div>
+      </div>
+
+      <!-- Progress bar -->
+      <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+        <div class="progress-bar__fill" id="progressFill" style="width: 0%"></div>
+      </div>
+
+      <!-- Question counter -->
+      <div class="question-counter">
+        Pregunta <strong id="currentQuestionNum">1</strong> de <strong id="totalQuestions">35</strong>
+      </div>
+
+      <!-- Question card -->
+      <article class="question-card" id="questionCard">
+        <div class="question-card__number" id="questionLabel">Pregunta 1 · Verbal</div>
+        <p class="question-card__text" id="questionText"></p>
+      </article>
+
+      <!-- Options -->
+      <div class="options-list" id="optionsList" role="radiogroup" aria-label="Opciones de respuesta">
+        <!-- Se llena con JS -->
+      </div>
+
+      <!-- Explanation (practice mode) -->
+      <div class="explanation" id="explanation">
+        <strong>Explicación:</strong> <span id="explanationText"></span>
+      </div>
+
+      <!-- Navigation -->
+      <div class="nav-buttons">
+        <button class="nav-btn" id="prevBtn" aria-label="Pregunta anterior">
+          <span class="material-symbols-rounded">arrow_back</span> Anterior
+        </button>
+        <button class="nav-btn nav-btn--primary" id="nextBtn" aria-label="Pregunta siguiente">
+          Siguiente <span class="material-symbols-rounded">arrow_forward</span>
+        </button>
+      </div>
+
+      <!-- Finish button -->
+      <button class="nav-btn nav-btn--finish mt-md" id="finishBtn" style="width: 100%; display: none;" aria-label="Finalizar test">
+        <span class="material-symbols-rounded">check</span> Finalizar test
+      </button>
+
+      <!-- Map toggle -->
+      <button class="map-toggle-btn" id="mapToggleBtn" aria-expanded="false" aria-controls="questionMap">
+        <span class="material-symbols-rounded">checklist</span> Ver mapa de preguntas
+      </button>
+
+      <!-- Question map -->
+      <nav class="question-map" id="questionMap" aria-label="Mapa de preguntas">
+        <div class="question-map__title">Navegación rápida</div>
+        <div class="question-map__grid" id="mapGrid" role="list">
+          <!-- Se llena con JS -->
+        </div>
+      </nav>
+    </section>
+
+    <!-- ═══ PANTALLA: RESULTADOS ═══ -->
+    <section class="screen" id="screenResults" aria-label="Resultados del test">
+
+      <!-- Results Score Ring -->
+      <div class="results-header">
+        <div class="score-ring-container" aria-label="Puntuación total">
+          <svg class="score-ring" viewBox="0 0 120 120" aria-hidden="true">
+            <circle class="score-ring__bg" cx="60" cy="60" r="52"/>
+            <circle class="score-ring__fill" id="scoreRingFill" cx="60" cy="60" r="52"/>
+          </svg>
+          <div class="score-ring__inner">
+            <div class="score-ring__icon material-symbols-rounded" id="resultsIcon">emoji_events</div>
+            <div class="score-ring__value">
+              <span id="scorePercent">0</span><span class="score-ring__pct">%</span>
+            </div>
+          </div>
+        </div>
+        <h2 class="results-header__title" id="resultsTitle">¡Test completado!</h2>
+      </div>
+
+      <!-- Stats row -->
+      <div class="stats-row">
+        <div class="stat-card stat-card--correct">
+          <div class="stat-card__value" id="statCorrect">0</div>
+          <div class="stat-card__label">Aciertos</div>
+        </div>
+        <div class="stat-card stat-card--incorrect">
+          <div class="stat-card__value" id="statIncorrect">0</div>
+          <div class="stat-card__label">Fallos</div>
+        </div>
+        <div class="stat-card stat-card--blank">
+          <div class="stat-card__value" id="statBlank">0</div>
+          <div class="stat-card__label">En blanco</div>
+        </div>
+      </div>
+
+      <!-- Final note -->
+      <div class="final-note">
+        <div class="final-note__label">Puntuación (acierto: +1 · fallo: −0,33)</div>
+        <div class="final-note__value" id="finalScore">0 / 35</div>
+      </div>
+
+      <!-- Module breakdown -->
+      <div class="module-breakdown">
+        <h3 class="module-breakdown__title">Desglose por módulos</h3>
+        <div id="moduleBreakdown">
+          <!-- Se llena con JS -->
+        </div>
+      </div>
+
+      <!-- Actions -->
+      <div class="results-actions">
+        <button class="action-btn action-btn--primary" id="reviewBtn">
+          <span class="material-symbols-rounded">fact_check</span> Revisar respuestas
+        </button>
+        <button class="action-btn action-btn--secondary" id="retryBtn">
+          <span class="material-symbols-rounded">refresh</span> Repetir test
+        </button>
+        <button class="action-btn action-btn--secondary" id="homeBtn">
+          <span class="material-symbols-rounded">home</span> Volver al menú
+        </button>
+      </div>
+    </section>
+
+    <!-- ═══ PANTALLA: REVISIÓN ═══ -->
+    <section class="screen" id="screenReview" aria-label="Revisión de respuestas">
+
+      <div class="review-header">
+        <h2 class="review-header__title">Revisión</h2>
+        <button class="back-btn" id="backToResultsBtn">
+          <span class="material-symbols-rounded" style="font-size: 18px; vertical-align: middle;">arrow_back</span> Resultados
+        </button>
+      </div>
+
+      <!-- Filters -->
+      <div class="review-filters" role="tablist" aria-label="Filtrar respuestas">
+        <button class="filter-btn active" data-filter="all" role="tab" aria-selected="true">Todas</button>
+        <button class="filter-btn" data-filter="correct" role="tab" aria-selected="false"><span class="material-symbols-rounded" style="font-size:16px;">check</span> Aciertos</button>
+        <button class="filter-btn" data-filter="incorrect" role="tab" aria-selected="false"><span class="material-symbols-rounded" style="font-size:16px;">close</span> Fallos</button>
+        <button class="filter-btn" data-filter="blank" role="tab" aria-selected="false">— En blanco</button>
+      </div>
+
+      <!-- Review list -->
+      <div class="review-list" id="reviewList">
+        <!-- Se llena con JS -->
+      </div>
+
+      <button class="action-btn action-btn--secondary mt-lg" id="backToResultsBtn2">
+        <span class="material-symbols-rounded" style="vertical-align: middle;">arrow_back</span> Volver a resultados
+      </button>
+    </section>
+
+    <!-- ═══ PANTALLA: GENERADOR IA ═══ -->
+    <section class="screen" id="screenAI" aria-label="Generador de test con IA">
+
+      <div class="ai-screen">
+
+        <!-- Header -->
+        <div class="ai-screen__header">
+          <button class="back-btn" id="aiBackBtn" aria-label="Volver al inicio">
+            <span class="material-symbols-rounded" style="font-size:18px;vertical-align:middle;">arrow_back</span> Inicio
+          </button>
+          <div class="ai-screen__title-group">
+            <div class="ai-screen__icon" aria-hidden="true">✨</div>
+            <h2 class="ai-screen__title">Generador IA</h2>
+            <p class="ai-screen__subtitle">Crea un examen único con Gemini 2.5 Flash</p>
+          </div>
+        </div>
+
+        <!-- Configuración -->
+        <div class="ai-config" id="aiConfig">
+
+          <!-- Dificultad -->
+          <div class="ai-option-group">
+            <label class="ai-option-group__label">
+              <span class="material-symbols-rounded">signalbar_4</span> Dificultad
+            </label>
+            <div class="ai-chips" role="radiogroup" aria-label="Nivel de dificultad">
+              <button class="ai-chip" data-value="media" id="diffMedia" role="radio" aria-checked="false">
+                <span class="material-symbols-rounded">star_half</span> Media
+              </button>
+              <button class="ai-chip active" data-value="media-alta" id="diffMediaAlta" role="radio" aria-checked="true">
+                <span class="material-symbols-rounded">star</span> Media-Alta
+              </button>
+              <button class="ai-chip" data-value="alta" id="diffAlta" role="radio" aria-checked="false">
+                <span class="material-symbols-rounded">flare</span> Alta
+              </button>
+            </div>
+          </div>
+
+          <!-- Info box -->
+          <div class="ai-info-box" id="aiInfoBox" aria-live="polite">
+            <span class="material-symbols-rounded">info</span>
+            <span id="aiInfoText">105 preguntas · ~55 minutos · 7 módulos · dificultad media-alta</span>
+          </div>
+
+          <!-- Botón generar -->
+          <button class="action-btn action-btn--primary ai-generate-btn" id="aiGenerateBtn">
+            <span class="material-symbols-rounded">auto_awesome</span>
+            Generar test
+          </button>
+
+          <!-- Loading state -->
+          <div class="ai-loading" id="aiLoading" aria-live="assertive" aria-busy="true" hidden>
+            <div class="ai-spinner" aria-hidden="true">
+              <div class="ai-spinner__ring"></div>
+              <div class="ai-spinner__icon material-symbols-rounded">psychology</div>
+            </div>
+            <div class="ai-progress-message" id="aiProgressMsg">Conectando con la IA…</div>
+            <div class="ai-progress-sub">Esto puede tardar entre 15 y 30 segundos</div>
+          </div>
+
+          <!-- Error state -->
+          <div class="ai-error" id="aiError" hidden>
+            <span class="material-symbols-rounded">error</span>
+            <div>
+              <strong>Error al generar el test</strong>
+              <div id="aiErrorMsg">Inténtalo de nuevo.</div>
+            </div>
+            <button class="ai-retry-btn" id="aiRetryBtn">
+              <span class="material-symbols-rounded">refresh</span> Reintentar
+            </button>
+          </div>
+
+        </div>
+
+        <!-- Aviso informativo -->
+        <div class="ai-disclaimer">
+          <span class="material-symbols-rounded">shield</span>
+          Las preguntas son generadas por IA y pueden contener imprecisiones. Úsalas como complemento, no como sustituto de material oficial.
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ═══ MODAL DE CONFIRMACIÓN ═══ -->
+  <div class="modal-overlay" id="modalOverlay" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal">
+      <div class="modal__icon material-symbols-rounded" id="modalIcon" style="font-size: 48px;">warning</div>
+      <h3 class="modal__title" id="modalTitle">¿Finalizar test?</h3>
+      <p class="modal__text" id="modalText">Tienes preguntas sin responder. ¿Estás seguro de que quieres terminar?</p>
+      <div class="modal__actions">
+        <button class="action-btn action-btn--primary" id="modalConfirm">Sí, finalizar</button>
+        <button class="action-btn action-btn--secondary" id="modalCancel">Seguir con el test</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="data.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
