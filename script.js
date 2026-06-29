@@ -1221,15 +1221,11 @@
   }
 
   function updateAIInfoBox() {
-    const qpm = 15;
     const diff = aiState.difficulty;
-    const total = qpm * 7;
-    const minutes = Math.round((total * 55) / 105);
     const diffLabel = { media: "media", "media-alta": "media-alta", alta: "alta" }[diff] || "media-alta";
-
     const infoText = document.getElementById("aiInfoText");
     if (infoText) {
-      infoText.textContent = `${total} preguntas · ~${minutes} minutos · 7 módulos · dificultad ${diffLabel}`;
+      infoText.textContent = `35 preguntas · ~20 minutos · 7 módulos · dificultad ${diffLabel}`;
     }
   }
 
@@ -1305,7 +1301,7 @@
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           difficulty: aiState.difficulty,
-          questionsPerModule: 15,
+          questionsPerModule: 5,
         }),
       });
 

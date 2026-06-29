@@ -26,14 +26,14 @@ export default async function handler(req, res) {
       .json({ error: "GEMINI_API_KEY no configurada en el servidor." });
   }
 
-  // ── Parámetros del cliente ───────────────────────────────
+  // ── Parámetros del cliente ───────────────────────────────────
   const {
     difficulty = "media-alta",
-    questionsPerModule = 15,
+    questionsPerModule = 5,
   } = req.body || {};
 
-  const qpm = Math.min(15, Math.max(5, parseInt(questionsPerModule) || 15));
-  const totalTime = Math.round((qpm * 7 * 55) / 105); // proporcional a 105q = 55min
+  const qpm = Math.min(5, Math.max(3, parseInt(questionsPerModule) || 5));
+  const totalTime = Math.round((qpm * 7 * 55) / 105); // proporcional
 
   // ── Prompt de alta calidad ───────────────────────────────
   const prompt = buildPrompt(difficulty, qpm, totalTime);
